@@ -17,12 +17,33 @@ Output: 3
 Explanation: F(4) = F(3) + F(2) = F(2) + F(1) + F(2) = F(1) + F(0) + F(1) + F(2) = F(1) + F(0) + F(1) + F(1) + F(0)
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Fibonacci {
     static int suboptimalSolution(int input) {
-        return 0;
+        if (input == 0) {
+            return 0;
+        } else if (input == 1) {
+            return 1;
+        } else {
+            return suboptimalSolution(input - 1) + suboptimalSolution(input - 2);
+        }
     }
 
     static int optimalSolution(int input) {
-        return  0;
+        Map<Integer, Integer> cache = new HashMap<>();
+        cache.put(0, 0);
+        cache.put(1, 1);
+        return optimal(input, cache);
+    }
+
+    static int optimal(int input, Map<Integer, Integer> cache) {
+        if (cache.containsKey(input)) {
+            return cache.get(input);
+        }
+        int val = optimal(input - 1, cache) + optimal(input - 2, cache);
+        cache.put(input, val);
+        return val;
     }
 }

@@ -1,6 +1,8 @@
 package com.lc.practice.questionbank;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /*
@@ -23,10 +25,26 @@ Explanation: 1 is at position 0, 1, 2, and 3, 2 is at position 4 and 6
  */
 public class DuplicatesInArray {
     static Set<Integer> suboptimalSolution(int[] input) {
-        return new HashSet<>();
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < input.length; i++) {
+            for (int j = i + 1; j < input.length; j++) {
+                if (input[i] == input[j]) {
+                    set.add(input[i]);
+                }
+            }
+        }
+        return set;
     }
 
     static Set<Integer> optimalSolution(int[] input) {
-        return new HashSet<>();
+        Set<Integer> map = new HashSet<>();
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < input.length; i++) {
+            if (map.contains(input[i])) {
+                set.add(input[i]);
+            }
+            map.add(input[i]);
+        }
+        return set;
     }
 }
